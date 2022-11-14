@@ -1,0 +1,23 @@
+dependencies:
+  - OpenZeppelin/openzeppelin-contracts@4.2.0
+  - smartcontractkit/chainlink-brownie-contracts@0.5.1
+compiler:
+  solc:
+    remappings:
+      - "@openzeppelin=OpenZeppelin/openzeppelin-contracts@4.2.0"
+      - "@chainlink=smartcontractkit/chainlink-brownie-contracts@0.5.1"
+dotenv: .env
+networks:
+  development:
+    verify: False
+  goerli-alchemy:
+    verify: False
+    accuweather_oracle: "0xB9756312523826A566e222a34793E414A81c88E1"
+    link_token: "0x326C977E6efc84E512bB9C30f76E30c160eD06FB"
+  ganache:
+    verify: False
+wallets:
+  from_key: ${PRIVATE_KEY}
+  second_key: ${SECOND_KEY}
+settings:
+  gas_limit: "100000000000000000"
