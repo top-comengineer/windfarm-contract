@@ -56,25 +56,6 @@ def deploy_wind_farm_policy():
         config["networks"][network.show_active()]["link_token"],
         LINK_AMOUNT,
     )
-    print("Attempting to update state on all client contracts...")
-    update_state_tx = wind_farm_policy_deployer.updatePolicyStates(
-        {"from": insurer, "gasLimit": 100000000000000000}
-    )
-    # tx2 = new_farm_contract.updateState({"from": insurer})
-    update_state_tx.wait(2)
-    print("Done... or is it? =D")
-
-    print("Client is attempting to pay today's minimum insurance premium...")
-    tx = new_farm_contract.payPremium({"from": client, "value": PREMIUM_AMOUNT})
-    tx.wait(2)
-    print("Premium received. Thank you!")
-
-    print("Attempting to query client's contract for the current local wind speed...")
-    windSpeedInStrathcona = new_farm_contract.getLatestWindSpeed()
-    windSpeedInStrathcona.wait(2)
-    speed = windSpeedInStrathcona / 10
-
-    print(f"The current wind speed in Strathcona Park is ", speed, "km/h!")
 
 
 def main():
