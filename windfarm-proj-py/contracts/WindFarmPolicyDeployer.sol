@@ -19,7 +19,7 @@ contract WindFarmPolicyDeployer {
         uint16 _days,
         string memory _latitude,
         string memory _longitude
-    ) external payable returns (InsureWindFarm) {
+    ) external payable {
         InsureWindFarm newFarm = (new InsureWindFarm){value: _amount}(
             _link,
             _oracle,
@@ -27,6 +27,7 @@ contract WindFarmPolicyDeployer {
             _amount,
             _client,
             msg.sender,
+            address(this),
             _days,
             _latitude,
             _longitude
@@ -35,9 +36,9 @@ contract WindFarmPolicyDeployer {
         deployedPolicies.push(policyAddress);
         policiesByInsurer[msg.sender].push(policyAddress);
         policiesByClient[_client].push(policyAddress);
-        return newFarm;
     }
 
+    /** @dev Called by Chainlink Automation Time-based Upkeep */
     function updatePolicyStates() external {
         for (uint256 i = 0; i < deployedPolicies.length; i++) {
             InsureWindFarm policy = InsureWindFarm(deployedPolicies[i]);
